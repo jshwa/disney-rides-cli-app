@@ -1,7 +1,21 @@
 class DisneyRides::CLI
 
     def start
+      scrape_disney
+      add_info
       menu
+    end
+
+    def scrape_disney
+      ride = scrape_park("x")
+      Ride.create_from_collection(ride)
+    end
+
+    def add_info
+      Ride.all.each do |ride|
+        info = scrape_attraction(ride.link)
+        ride.add_attraction_info(info)
+      end
     end
 
     def menu
