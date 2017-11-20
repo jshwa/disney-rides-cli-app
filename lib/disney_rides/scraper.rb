@@ -16,20 +16,22 @@ class DisneyRides::Scraper
       park_attractions << {
         :name => ride.css("h2.cardName").text,
         :resort => "Disneyland",
-        :link => ride.css("div.detailIndicatorContainer a").attribute("href").value
+        :link => ride.css("a").attribute("href").value
       }
     end
     park_attractions
   end
 
   def self.scrape_attraction(attraction_url)
+    ride = Nokogiri::HTML(open(attraction_url))
+
     additional_info = {}
 
-    additional_info[:hours] = "8:00AM"
-    additional_info[:park] = "Adventureland"
-    additional_info[:thrill_lvl] = "Thrill Rides"
-    additional_info[:desc] = "Venture deep inside a cursed temple aboard a rugged troop transport and embark on a fast-paced thrill ride to find Indiana Jones."
-    additional_info[:fastpass] = "Yes"
+    additional_info[:park] = ride.css("p.locationLandArea").text.strip
+    additional_info[:thrill_lvl] = ride.css("p.thrillFactorText").text
+    additional_info[:hours] = ride.css("li time.timeStart").text.strip
+    additional_info[:desc] = ride.css("p.finderDetailsPageSubtitle").text.strip
+    additional_info[:fastpass] = ride.css("div.atAGlanceItem span a").text == "FastPass Offered" ? "Yes" : "No"
     additional_info
   end
 end

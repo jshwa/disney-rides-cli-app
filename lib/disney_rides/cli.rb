@@ -13,7 +13,7 @@ class DisneyRides::CLI
 
     def add_info
       DisneyRides::Ride.all.each do |ride|
-        info = DisneyRides::Scraper.scrape_attraction(ride.link)
+        info = DisneyRides::Scraper.scrape_attraction("https://disneyland.disney.go.com#{ride.link}")
         ride.add_attraction_info(info)
       end
     end
