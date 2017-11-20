@@ -1,9 +1,9 @@
 class DisneyRides::CLI
 
     def start
-      menu
       scrape_disney
       add_info
+      menu
     end
 
     def scrape_disney
@@ -55,6 +55,7 @@ class DisneyRides::CLI
 
     def print_ride(ride)
       puts "-----------#{ride.name}-----------"
+      puts "#{ride.link}"
       puts "Disney:           #{ride.resort.name}"
       puts "Park:             #{ride.park}"
       puts "Thrill Level:     #{ride.thrill_lvl.name}"
