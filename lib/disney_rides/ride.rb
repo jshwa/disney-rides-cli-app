@@ -1,5 +1,5 @@
 class DisneyRides::Ride
-  attr_accessor :name, :park, :location, :hours, :link, :thrill_lvl, :desc, :fastpass
+  attr_accessor :name, :resort, :park, :hours, :link, :thrill_lvl, :desc, :fastpass
 
   @@all = []
 
@@ -10,6 +10,16 @@ class DisneyRides::Ride
 
   def self.all
     @@all
+  end
+
+  def resort=(resort)
+    @resort = resort
+    resort.add_ride(self)
+  end
+
+  def thrill_lvl=(thrill_lvl)
+    @thrill_lvl = thrill_lvl
+    thrill_lvl.add_ride(self)
   end
 
   def self.create_from_collection(rides_list)

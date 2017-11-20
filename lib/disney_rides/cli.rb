@@ -35,7 +35,7 @@ class DisneyRides::CLI
 
     def print_ride(ride)
       puts "-----------#{ride.name}-----------"
-      puts "Disney:           #{ride.location}"
+      puts "Disney:           #{ride.resort}"
       puts "Park:             #{ride.park}"
       puts "Thrill Level:     #{ride.thrill_lvl}"
       puts "Hours:            #{ride.hours}"

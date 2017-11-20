@@ -5,8 +5,8 @@ class DisneyRides::Scraper
 
     park_attractions << {
       :name => "Indiana Jones",
-      :park => "Disneyland",
-      :location => "Adventureland",
+      :resort => "Disneyland",
+      :park => "Adventureland",
       :hours => "8:00 AM to 12:00AM"
     }
     park_attractions
