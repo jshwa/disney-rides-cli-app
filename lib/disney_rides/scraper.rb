@@ -12,6 +12,10 @@ class DisneyRides::Scraper
   end
 
   def scrape_attraction(attraction_url)
+    additional_info = {}
 
+    additional_info[:thrill_lvl] = "Thrill Rides"
+    additional_info[:desc] = "Venture deep inside a cursed temple aboard a rugged troop transport and embark on a fast-paced thrill ride to find Indiana Jones."
+    additional_info[fastpass] = "Yes"
   end
 end
