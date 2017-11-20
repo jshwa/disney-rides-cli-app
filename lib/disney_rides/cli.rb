@@ -21,16 +21,22 @@ class DisneyRides::CLI
     def menu
       puts "Welcome to Disney Rides"
       puts "What would you like to do?"
-      puts "1. See rides by park"
+      puts "1. See rides by resort"
       puts "2. See rides by thrill level"
       puts "3. See fastpass rides"
       puts "4. Print all rides"
       input = gets.strip.to_i
 
       case input
+      when 1
+        print_resorts
       when 4
         DisneyRides::Ride.all.each {|ride| print_ride(ride)}
       end
+    end
+
+    def print_resorts
+      DisneyRides::Resort.all.uniq.each {|r| puts r.name}
     end
 
     def print_ride(ride)
