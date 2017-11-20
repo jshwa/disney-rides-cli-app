@@ -13,7 +13,8 @@ CLI
   - creates a constant that is an array of hashes :park => URLs for all the disney parks
   - #find_rides takes the array of hashes and calls #scrape_park on each URL. It also assigns the :park name to the ride if it is pulled from that park
   - #add_info takes each attraction's URL and calls scrape_attraction
-  - #menu prints the menu
+  - #menu puts the menu
+  - #print_park puts the park info all purty-like
   - rides by park returns park.all
   - rides by thrill level returns thrill_lvl.all
   - FastPass Rides prints rides where :fastpass != nil
@@ -28,7 +29,7 @@ Scraper class
 Rides class
   - initializes with a hash
   - adds to @@all
-  - .create_from_collection - creates new students from the scraped array (or any other array of hashes)
+  - .create_from_collection - creates new rides from the scraped array (or any other array of hashes)
   - #add_attraction_info - adds more info that has been scraped (or any other hash)
   - .all
   - park=(park) calls park.add_ride to add itself to the park object

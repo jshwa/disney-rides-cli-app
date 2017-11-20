@@ -5,7 +5,7 @@ class DisneyRides::Ride
 
   def initialize(ride_hash)
     ride_hash.each {|name, info| send "#{name}=", info}
-    self.all << self
+    @@all << self
   end
 
   def self.all
@@ -13,7 +13,7 @@ class DisneyRides::Ride
   end
 
   def self.create_from_collection(rides_list)
-    rides_list.each {|ride| Ride.new(ride)}
+    rides_list.each {|ride| self.new(ride)}
   end
 
   def add_attraction_info(info_hash)

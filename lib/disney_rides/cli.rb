@@ -7,13 +7,13 @@ class DisneyRides::CLI
     end
 
     def scrape_disney
-      ride = scrape_park("x")
-      Ride.create_from_collection(ride)
+      ride = DisneyRides::Scraper.scrape_park("x")
+      DisneyRides::Ride.create_from_collection(ride)
     end
 
     def add_info
-      Ride.all.each do |ride|
-        info = scrape_attraction(ride.link)
+      DisneyRides::Ride.all.each do |ride|
+        info = DisneyRides::Scraper.scrape_attraction(ride.link)
         ride.add_attraction_info(info)
       end
     end
@@ -26,6 +26,11 @@ class DisneyRides::CLI
       puts "3. See fastpass rides"
       puts "4. Print all rides"
       input = gets.strip.to_i
+
+      case input
+      when 4
+        DisneyRides::Ride.all.each {|ride| print_ride(ride)}
+      end
     end
 
     def print_ride(ride)
@@ -35,6 +40,6 @@ class DisneyRides::CLI
       puts "Thrill Level:     #{ride.thrill_lvl}"
       puts "Hours:            #{ride.hours}"
       puts "Fastpass:         #{ride.fastpass}"
-      puts "Description:      #{ride.description}"
+      puts "Description:      #{ride.desc}"
     end
 end
