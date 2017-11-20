@@ -25,4 +25,12 @@ class DisneyRides::Resort
     self.rides << ride
   end
 
+  def self.find(resort)
+    self.all.detect {|r| r.name == resort}
+  end
+
+  def self.find_or_create(resort)
+    self.find(resort) || self.create(resort)
+  end
+
 end

@@ -13,12 +13,12 @@ class DisneyRides::Ride
   end
 
   def resort=(resort)
-    @resort = resort
+    @resort = DisneyRides::Resort.find_or_create(artist)
     resort.add_ride(self)
   end
 
   def thrill_lvl=(thrill_lvl)
-    @thrill_lvl = thrill_lvl
+    @thrill_lvl = DisneyRides::Thrill_lvl.find_or_create(thrill_lvl)
     thrill_lvl.add_ride(self)
   end
 
