@@ -1,9 +1,9 @@
 class DisneyRides::CLI
 
     def start
+      menu
       scrape_disney
       add_info
-      menu
     end
 
     def scrape_disney

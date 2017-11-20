@@ -8,7 +8,6 @@ class DisneyRides::Scraper
   def self.scrape_park(park_url)
     browser = Watir::Browser.new :chrome
     browser.goto(park_url)
-    sleep 2
     all_rides = Nokogiri::HTML(browser.html)
 
     park_attractions = []
