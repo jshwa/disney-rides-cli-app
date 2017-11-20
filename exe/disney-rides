@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'disney_rides'
+
+DisneyRides::CLI.new.start
