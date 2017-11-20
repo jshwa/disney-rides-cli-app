@@ -30,6 +30,10 @@ class DisneyRides::CLI
       case input
       when 1
         print_resorts
+      when 2
+        print_thrill_lvl
+      when 3
+        print_fastpass
       when 4
         DisneyRides::Ride.all.each {|ride| print_ride(ride)}
       end
@@ -37,6 +41,16 @@ class DisneyRides::CLI
 
     def print_resorts
       DisneyRides::Resort.all.uniq.each {|r| puts r.name}
+    end
+
+    def print_thrill_lvl
+      DisneyRides::Thrill_lvl.all.uniq.each {|r| puts r.name}
+    end
+
+    def print_fastpass
+      DisneyRides::Ride.all.each do |ride|
+        puts ride.name if ride.fastpass == "Yes"
+      end
     end
 
     def print_ride(ride)
