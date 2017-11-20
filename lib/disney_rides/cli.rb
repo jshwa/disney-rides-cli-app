@@ -7,7 +7,7 @@ class DisneyRides::CLI
     end
 
     def scrape_disney
-      ride = DisneyRides::Scraper.scrape_park("x")
+      ride = DisneyRides::Scraper.scrape_park("https://disneyland.disney.go.com/attractions/")
       DisneyRides::Ride.create_from_collection(ride)
     end
 
@@ -55,11 +55,13 @@ class DisneyRides::CLI
 
     def print_ride(ride)
       puts "-----------#{ride.name}-----------"
-      puts "Disney:           #{ride.resort}"
+      puts "Disney:           #{ride.resort.name}"
       puts "Park:             #{ride.park}"
-      puts "Thrill Level:     #{ride.thrill_lvl}"
+      puts "Thrill Level:     #{ride.thrill_lvl.name}"
       puts "Hours:            #{ride.hours}"
       puts "Fastpass:         #{ride.fastpass}"
-      puts "Description:      #{ride.desc}"
+      puts ""
+      puts "Description:"
+      puts "#{ride.desc}"
     end
 end
