@@ -9,6 +9,7 @@ class DisneyRides::Scraper
   def self.scrape_park(park_url)
     browser = Watir::Browser.new :chrome
     browser.goto(park_url)
+    sleep 2
     all_rides = Nokogiri::HTML(browser.html)
 
     park_attractions = []
@@ -32,7 +33,7 @@ class DisneyRides::Scraper
     additional_info[:hours] = "#{ride.css("li time.timeStart").text.strip.split("  ")[0]} to #{ride.css("li time.timeEnd").text.strip.split("  ")[0]}"
     additional_info[:fastpass] = ride.css("div.atAGlanceItem span a").text == "FastPass Offered" ? "Yes" : "No"
     if attraction_url =~ /shanghai/
-      additional_info[:desc] = ride.css("h2.finderDetailsPageSubtitle p").text.strip
+        additional_info[:desc] = ride.css("div.finderDetailsContentLeft p")[0].text.strip
     else
       additional_info[:desc] = ride.css("p.finderDetailsPageSubtitle").text.strip
     end
