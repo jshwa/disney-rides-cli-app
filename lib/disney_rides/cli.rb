@@ -73,6 +73,8 @@ class DisneyRides::CLI
         DisneyRides::Ride.all.each {|ride| print_ride(ride)}
       when 5
         exit
+      else
+        menu
       end
       menu
     end
@@ -99,7 +101,8 @@ class DisneyRides::CLI
         fastpass << ride if ride.fastpass == "Yes"
       end
       puts ""
-      puts "----------- Disney Resorts -----------"
+      puts "----------- Fastpass Rides -----------"
+      puts ""
       fastpass.each.with_index(1) {|ride, index| puts "#{index}. #{ride.name}"}
       puts ""
       puts "Which ride would you like to see more about? Or type menu"

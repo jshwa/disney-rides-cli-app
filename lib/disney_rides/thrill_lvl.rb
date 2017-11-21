@@ -1,5 +1,5 @@
 class DisneyRides::Thrill_lvl
-  attr_accessor :name, :rides
+  attr_accessor :name, :rides, :resort
   @@all = []
 
   def initialize(name)
@@ -10,10 +10,6 @@ class DisneyRides::Thrill_lvl
 
   def self.all
     @@all
-  end
-
-  def self.rides
-    @rides
   end
 
   def self.create(name)
