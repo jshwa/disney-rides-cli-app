@@ -84,15 +84,19 @@ class DisneyRides::CLI
     def print_thrill_lvl
       puts ""
       puts "----------- Thrill Levels -----------"
-      current_resort.thrills.uniq.each.with_index(1) {|r, i| puts "#{i}. #{r.name}"}
-      puts ""
-      puts "Which thrill level would you like more info on? Or type menu"
-      input = gets.strip
-      if input == "menu"
+      if current_resort.name == "Disneyland Resort Paris"
+        puts "Sorry, thrill levels currently unavailable for Paris"
         menu
-      else
-        current_resort.thrills.uniq[input.to_i-1].rides.each do |ride|
-          print_ride(ride)
+      else current_resort.thrills.uniq.each.with_index(1) {|r, i| puts "#{i}. #{r.name}"}
+        puts ""
+        puts "Which thrill level would you like more info on? Or type menu"
+        input = gets.strip
+        if input == "menu"
+          menu
+        else
+          current_resort.thrills.uniq[input.to_i-1].rides.each do |ride|
+            print_ride(ride)
+          end
         end
       end
     end

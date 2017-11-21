@@ -31,7 +31,7 @@ class DisneyRides::Scraper
     additional_info[:park] = ride.css("p.locationLandArea").text.strip
     additional_info[:thrill_lvl] = ride.css("p.thrillFactorText").text.split(", ")
     additional_info[:hours] = "#{ride.css("li time.timeStart").text.strip.split("  ")[0]} to #{ride.css("li time.timeEnd").text.strip.split("  ")[0]}"
-    additional_info[:fastpass] = ride.css("div.atAGlanceItem span a").text == "FastPass Offered" ? "Yes" : "No"
+    additional_info[:fastpass] = ride.css("div.atAGlanceItem span a").text == "Offered" ? "Yes" : "No"
     if attraction_url =~ /shanghai/
         additional_info[:desc] = ride.css("div.finderDetailsContentLeft p")[0].text.strip
     else

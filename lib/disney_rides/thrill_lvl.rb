@@ -20,13 +20,4 @@ class DisneyRides::Thrill_lvl
   def add_ride(ride)
     self.rides << ride
   end
-
-  def self.find(thrill_lvl)
-    self.all.detect {|r| r.name == thrill_lvl}
-  end
-
-  def self.find_or_create(thrill_lvl)
-    self.find(thrill_lvl) || self.create(thrill_lvl)
-  end
-
 end

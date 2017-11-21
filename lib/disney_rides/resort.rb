@@ -33,4 +33,8 @@ class DisneyRides::Resort
     end
   end
 
+  def find_or_create_thrill(thrill_lvl)
+    self.thrills.detect{|thrill| thrill.name == thrill_lvl} || DisneyRides::Thrill_lvl.create(thrill_lvl)
+  end
+
 end
