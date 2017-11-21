@@ -1,27 +1,45 @@
 class DisneyRides::CLI
   attr_accessor :current_resort
-  DISNEYHOME = "https://disneyparks.disney.go.com/"
+
+  RESORTS = {
+    "Walt Disney World Resort, FL" => "https://disneyworld.disney.go.com",
+    "Disneyland Resort, CA" => "https://disneyland.disney.go.com",
+    "Aulani Resort, Hawai'i" => "https://www.disneyaulani.com",
+    "Disneyland Resort Paris" => "https://www.disneylandparis.co.uk",
+    "Hong Kong Disneyland Resort" => "https://www.hongkongdisneyland.com",
+    "Shanghai Disney Resort" => "https://www.shanghaidisneyresort.com/en/"
+  }
 
     def start
-      get_resorts
-      select_resort
+      welcome
     end
 
-    def get_resorts
-      resorts = DisneyRides::Scraper.scrape_resorts(DISNEYHOME)
-      DisneyRides::Resort.create_from_collection(resorts)
-    end
 
-    def select_resort
-      puts "--------------------------"
-      puts "Welcome to Disney Rides"
-      puts "--------------------------"
+    def welcome
+      puts "--------------------------------------"
+      puts "       Welcome to Disney Rides"
+      puts "--------------------------------------"
       puts ""
+      DisneyRides::Resort.create_from_collection(RESORTS)
       print_resorts
     end
 
+    def print_resorts
+      puts ""
+      puts "----------- Disney Resorts -----------"
+      DisneyRides::Resort.all.uniq.each.with_index(1) {|r, i| puts "#{i}. #{r.name}"}
+      puts ""
+      puts "Select a disney resort to see its rides"
+      input = gets.strip.to_i
+      self.current_resort = DisneyRides::Resort.all.uniq[input]
+      scrape_disney
+      add_info
+      menu
+    end
+
     def scrape_disney
-      ride = DisneyRides::Scraper.scrape_park("#{current_resort.url}attractions/")
+      ride = DisneyRides::Scraper.scrape_park("#{current_resort.url}/attractions/")
+      ride.each {|r| r[:resort] = current_resort}
       DisneyRides::Ride.create_from_collection(ride)
     end
 
@@ -36,7 +54,7 @@ class DisneyRides::CLI
       puts "What would you like to do?"
       puts "1. See Disney Resorts"
       puts "2. See thrill levels at #{current_resort.name}"
-      puts "3. See fastpass rides"
+      puts "3. See fastpass rides at #{current_resort.name}"
       puts "4. Print all rides"
       puts "5. Exit"
       input = gets.strip.to_i
@@ -53,19 +71,6 @@ class DisneyRides::CLI
       when 5
         exit
       end
-      menu
-    end
-
-    def print_resorts
-      puts ""
-      puts "----------- Disney Resorts -----------"
-      DisneyRides::Resort.all.uniq.each.with_index(1) {|r, i| puts "#{i}. #{r.name}"}
-      puts ""
-      puts "Select a disney resort to see its rides"
-      input = gets.strip.to_i
-      self.current_resort = DisneyRides::Resort.all.uniq[input]
-      scrape_disney
-      add_info
       menu
     end
 
@@ -90,6 +95,8 @@ class DisneyRides::CLI
       DisneyRides::Ride.all.each do |ride|
         fastpass << ride if ride.fastpass == "Yes"
       end
+      puts ""
+      puts "----------- Disney Resorts -----------"
       fastpass.each.with_index(1) {|ride, index| puts "#{index}. #{ride.name}"}
       puts ""
       puts "Which ride would you like to see more about? Or type menu"

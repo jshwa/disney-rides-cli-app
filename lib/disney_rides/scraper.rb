@@ -9,7 +9,7 @@ class DisneyRides::Scraper
     all_resorts = Nokogiri::HTML(open(disney_home))
 
     resorts = []
-binding.pry
+    
     all_resorts.css("div#Parks-Destinations div.footer-panel-content li").each do |resort|
       resorts << {
         :name => resort.css("a").text,

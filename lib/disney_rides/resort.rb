@@ -2,8 +2,8 @@ class DisneyRides::Resort
   attr_accessor :name, :rides, :url
   @@all = []
 
-  def initialize(hash)
-    hash.each {|name,info| send "#{name}=", info}
+  def initialize(name)
+    @name = name
     @rides = []
     @@all << self
   end
@@ -25,16 +25,19 @@ class DisneyRides::Resort
     self.rides << ride
   end
 
-  def self.find(resort)
-    self.all.detect {|r| r.name == resort}
-  end
-
-  def self.find_or_create(resort)
-    self.find(resort) || self.create(resort)
-  end
+  # def self.find(resort)
+  #   self.all.detect {|r| r.name == resort}
+  # end
+  #
+  # def self.find_or_create(resort)
+  #   self.find(resort) || self.create(resort)
+  # end
 
   def self.create_from_collection(resorts)
-    resorts.each {|resort| self.new(resort)}
+    resorts.each do |resort, url|
+      resort = self.create(resort)
+      resort.url = url
+    end
   end
 
 end

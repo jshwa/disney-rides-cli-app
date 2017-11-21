@@ -13,7 +13,7 @@ class DisneyRides::Ride
   end
 
   def resort=(resort)
-    @resort = DisneyRides::Resort.find_or_create(resort)
+    @resort = resort
     @resort.add_ride(self)
   end
 
