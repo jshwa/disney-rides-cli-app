@@ -18,8 +18,11 @@ class DisneyRides::Ride
   end
 
   def thrill_lvl=(thrill_lvl)
-    @thrill_lvl = DisneyRides::Thrill_lvl.find_or_create(thrill_lvl)
-    @thrill_lvl.add_ride(self)
+    @thrill_lvl = thrill_lvl
+    thrill_lvl.each do |thrill|
+      thrill_obj = DisneyRides::Thrill_lvl.find_or_create(thrill)
+      thrill_obj.add_ride(self)
+    end
   end
 
   def self.create_from_collection(rides_list)

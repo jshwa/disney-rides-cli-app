@@ -28,8 +28,8 @@ class DisneyRides::Scraper
     additional_info = {}
 
     additional_info[:park] = ride.css("p.locationLandArea").text.strip
-    additional_info[:thrill_lvl] = ride.css("p.thrillFactorText").text
-    additional_info[:hours] = ride.css("li time.timeStart").text.strip
+    additional_info[:thrill_lvl] = ride.css("p.thrillFactorText").text.split(", ")
+    additional_info[:hours] = "#{ride.css("li time.timeStart").text.strip.split("  ")[0]} to #{ride.css("li time.timeEnd").text.strip.split("  ")[0]}"
     additional_info[:desc] = ride.css("p.finderDetailsPageSubtitle").text.strip
     additional_info[:fastpass] = ride.css("div.atAGlanceItem span a").text == "FastPass Offered" ? "Yes" : "No"
     additional_info
