@@ -1,23 +1,10 @@
 require 'open-uri'
+require 'net/http'
 require 'nokogiri'
 require 'watir'
 require 'pry'
 
 class DisneyRides::Scraper
-
-  def self.scrape_resorts(disney_home)
-    all_resorts = Nokogiri::HTML(open(disney_home))
-
-    resorts = []
-    
-    all_resorts.css("div#Parks-Destinations div.footer-panel-content li").each do |resort|
-      resorts << {
-        :name => resort.css("a").text,
-        :url => resort.css("a").attribute("href").value
-      }
-    end
-    resorts
-  end
 
   def self.scrape_park(park_url)
     browser = Watir::Browser.new :chrome
@@ -29,7 +16,6 @@ class DisneyRides::Scraper
     all_rides.css("li.card").each do |ride|
       park_attractions << {
         :name => ride.css("h2.cardName").text,
-        :resort => "Disneyland",
         :link => ride.css("a").attribute("href").value
       }
     end
