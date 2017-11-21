@@ -95,8 +95,15 @@ class DisneyRides::CLI
         if input == "menu"
           menu
         else
-          current_resort.thrills.uniq[input.to_i-1].rides.each do |ride|
-            print_ride(ride)
+          current_resort.thrills.uniq[input.to_i-1].rides.each.with_index(1) {|ride, index| puts "#{index}. #{ride.name}"}
+          puts ""
+          puts "Which ride would you like to see more about? Or menu"
+          ride_index = gets.strip
+          if ride_index == "menu"
+            menu
+          else
+            print_ride(current_resort.thrills.uniq[input.to_i-1].rides[ride_index.to_i-1])
+            menu
           end
         end
       end
