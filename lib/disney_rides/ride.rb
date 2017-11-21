@@ -22,6 +22,7 @@ class DisneyRides::Ride
     thrill_lvl.each do |thrill|
       thrill_obj = DisneyRides::Thrill_lvl.find_or_create(thrill)
       thrill_obj.add_ride(self)
+      self.resort.add_thrill(thrill_obj)
     end
   end
 

@@ -1,19 +1,16 @@
 class DisneyRides::Resort
-  attr_accessor :name, :rides, :url
+  attr_accessor :name, :rides, :url, :thrills
   @@all = []
 
   def initialize(name)
     @name = name
     @rides = []
+    @thrills = []
     @@all << self
   end
 
   def self.all
     @@all
-  end
-
-  def self.rides
-    @rides
   end
 
   def self.create(name)
@@ -23,6 +20,10 @@ class DisneyRides::Resort
 
   def add_ride(ride)
     self.rides << ride
+  end
+
+  def add_thrill(thrill)
+    self.thrills << thrill
   end
 
   def self.create_from_collection(resorts)

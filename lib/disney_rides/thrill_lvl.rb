@@ -1,5 +1,5 @@
 class DisneyRides::Thrill_lvl
-  attr_accessor :name, :rides, :resort
+  attr_accessor :name, :rides
   @@all = []
 
   def initialize(name)

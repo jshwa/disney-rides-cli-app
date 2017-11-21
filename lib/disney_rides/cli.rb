@@ -43,7 +43,7 @@ class DisneyRides::CLI
     end
 
     def add_info
-      DisneyRides::Ride.all.each do |ride|
+      current_resort.rides.each do |ride|
         if current_resort.name == "Disneyland Resort, CA"
           info = DisneyRides::Scraper.scrape_attraction("#{current_resort.url}#{ride.link}")
         else
@@ -55,22 +55,22 @@ class DisneyRides::CLI
 
     def menu
       puts "What would you like to do?"
-      puts "1. See Disney Resorts"
-      puts "2. See thrill levels at #{current_resort.name}"
-      puts "3. See fastpass rides at #{current_resort.name}"
-      puts "4. Print all rides"
+      puts "1. See thrill levels at #{current_resort.name}"
+      puts "2. See fastpass rides at #{current_resort.name}"
+      puts "3. Print all rides"
+      puts "4. See Disney Resorts"
       puts "5. Exit"
       input = gets.strip.to_i
 
       case input
       when 1
-        print_resorts
-      when 2
         print_thrill_lvl
-      when 3
+      when 2
         print_fastpass
+      when 3
+        current_resort.rides.each {|ride| print_ride(ride)}
       when 4
-        DisneyRides::Ride.all.each {|ride| print_ride(ride)}
+        print_resorts
       when 5
         exit
       else
@@ -82,14 +82,14 @@ class DisneyRides::CLI
     def print_thrill_lvl
       puts ""
       puts "----------- Thrill Levels -----------"
-      DisneyRides::Thrill_lvl.all.uniq.each.with_index(1) {|r, i| puts "#{i}. #{r.name}"}
+      current_resort.thrills.uniq.each.with_index(1) {|r, i| puts "#{i}. #{r.name}"}
       puts ""
       puts "Which thrill level would you like more info on? Or type menu"
       input = gets.strip
       if input == "menu"
         menu
       else
-        DisneyRides::Thrill_lvl.all.uniq[input.to_i-1].rides.each do |ride|
+        current_resort.thrills.uniq[input.to_i-1].rides.each do |ride|
           print_ride(ride)
         end
       end
@@ -97,7 +97,7 @@ class DisneyRides::CLI
 
     def print_fastpass
       fastpass = []
-      DisneyRides::Ride.all.each do |ride|
+      current_resort.rides.each do |ride|
         fastpass << ride if ride.fastpass == "Yes"
       end
       puts ""
