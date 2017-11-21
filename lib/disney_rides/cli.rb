@@ -31,8 +31,10 @@ class DisneyRides::CLI
       input = gets.strip.to_i
       self.current_resort = DisneyRides::Resort.all[input-1]
       puts "Just a second. Finding your info..."
-      scrape_disney
-      add_info
+      if current_resort.rides == []
+        scrape_disney
+        add_info
+      end
       menu
     end
 
@@ -68,7 +70,7 @@ class DisneyRides::CLI
       when 2
         print_fastpass
       when 3
-        current_resort.rides.each {|ride| print_ride(ride)}
+        print_ride_list
       when 4
         print_resorts
       when 5
@@ -112,6 +114,17 @@ class DisneyRides::CLI
       else
         print_ride(fastpass[input.to_i - 1])
       end
+    end
+
+    def print_ride_list
+      puts ""
+      puts "-----------Rides at #{current_resort.name}-----------"
+      current_resort.rides.each.with_index(1) {|ride,index| puts "#{index}. #{ride.name}"}
+      puts ""
+      puts "Which ride would you like to see more about?"
+      input = gets.strip.to_i
+      print_ride(current_resort.rides[input-1])
+      menu
     end
 
     def print_ride(ride)
