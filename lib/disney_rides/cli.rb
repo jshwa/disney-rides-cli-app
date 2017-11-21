@@ -59,7 +59,7 @@ class DisneyRides::CLI
       puts "What would you like to do?"
       puts "1. See thrill levels at #{current_resort.name}"
       puts "2. See fastpass rides at #{current_resort.name}"
-      puts "3. Print all rides"
+      puts "3. Print all rides at #{current_resort.name}"
       puts "4. See Disney Resorts"
       puts "5. Exit"
       input = gets.strip.to_i
@@ -86,6 +86,7 @@ class DisneyRides::CLI
       puts "----------- Thrill Levels -----------"
       if current_resort.name == "Disneyland Resort Paris"
         puts "Sorry, thrill levels currently unavailable for Paris"
+        puts ""
         menu
       else current_resort.thrills.uniq.each.with_index(1) {|r, i| puts "#{i}. #{r.name}"}
         puts ""
@@ -108,15 +109,21 @@ class DisneyRides::CLI
       end
       puts ""
       puts "----------- Fastpass Rides -----------"
-      puts ""
-      fastpass.each.with_index(1) {|ride, index| puts "#{index}. #{ride.name}"}
-      puts ""
-      puts "Which ride would you like to see more about? Or type menu"
-      input = gets.strip
-      if input == "menu"
+      if current_resort.name == "Disneyland Resort Paris"
+        puts "Sorry, Fastpass info currently unavailable for Paris"
+        puts ""
         menu
       else
-        print_ride(fastpass[input.to_i - 1])
+        puts ""
+        fastpass.each.with_index(1) {|ride, index| puts "#{index}. #{ride.name}"}
+        puts ""
+        puts "Which ride would you like to see more about? Or type menu"
+        input = gets.strip
+        if input == "menu"
+          menu
+        else
+          print_ride(fastpass[input.to_i - 1])
+        end
       end
     end
 
