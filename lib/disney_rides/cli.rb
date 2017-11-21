@@ -70,8 +70,18 @@ class DisneyRides::CLI
     end
 
     def print_fastpass
+      fastpass = []
       DisneyRides::Ride.all.each do |ride|
-        puts ride.name if ride.fastpass == "Yes"
+        fastpass << ride if ride.fastpass == "Yes"
+      end
+      fastpass.each.with_index(1) {|ride, index| puts "#{index}. #{ride.name}"}
+      puts ""
+      puts "Which ride would you like to see more about? Or type menu"
+      input = gets.strip
+      if input == "menu"
+        menu
+      else
+        print_ride(fastpass[input.to_i - 1])
       end
     end
 
