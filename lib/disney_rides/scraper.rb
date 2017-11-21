@@ -5,17 +5,18 @@ require 'pry'
 
 class DisneyRides::Scraper
 
-  def scrape_resorts(disney_home)
+  def self.scrape_resorts(disney_home)
     all_resorts = Nokogiri::HTML(open(disney_home))
 
     resorts = []
-
-    all_resorts.css("div.footer-panel-content").each do |resort|
+binding.pry
+    all_resorts.css("div#Parks-Destinations div.footer-panel-content li").each do |resort|
       resorts << {
         :name => resort.css("a").text,
-        :url => resort.css("a").attribute("title").value
+        :url => resort.css("a").attribute("href").value
       }
     end
+    resorts
   end
 
   def self.scrape_park(park_url)
