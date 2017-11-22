@@ -1,5 +1,4 @@
 require 'open-uri'
-require 'net/http'
 require 'nokogiri'
 require 'watir'
 require 'pry'

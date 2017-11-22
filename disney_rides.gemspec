@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "disney_rides"
   spec.version       = DisneyRides::VERSION
   spec.authors       = ["Joshua Palacios"]
-  spec.email         = ["Write your email address"]
+  spec.email         = ["palacios.joshua@gmail.com"]
 
-  spec.summary       = %q{Write a short summary, because RubyGems requires one.}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.summary       = %q{Provides info about rides at various disney resorts}
+  spec.description   = %q{This Ruby Gem is a school project to demonstrate scraping websites and object oriented programming. The gem scrapes the websites of various Disney resorts and returns info about the rides at each resort. Users can use the CLI to view rides categorized by thrill level or fastpass availability, or can choose to view all rides at a given resort.}
   spec.homepage      = "https://github.com/jshwa"
   spec.license       = "MIT"
 

@@ -9,16 +9,14 @@ class DisneyRides::CLI
     "Shanghai Disney Resort" => "https://www.shanghaidisneyresort.com/en"
   }
 
-    def start
-      welcome
-    end
-
-
-    def welcome
+    def initialize
       puts "--------------------------------------"
       puts "       Welcome to Disney Rides"
       puts "--------------------------------------"
       DisneyRides::Resort.create_from_collection(RESORTS)
+    end
+
+    def start
       print_resorts
     end
 
@@ -110,10 +108,7 @@ class DisneyRides::CLI
     end
 
     def print_fastpass
-      fastpass = []
-      current_resort.rides.each do |ride|
-        fastpass << ride if ride.fastpass == "Yes"
-      end
+      fastpass = current_resort.rides.select {|ride| ride.fastpass == "Yes"}
       puts ""
       puts "----------- Fastpass Rides -----------"
       if current_resort.name == "Disneyland Resort Paris"

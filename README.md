@@ -1,8 +1,6 @@
 # DisneyRides
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/disney_rides`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This Ruby Gem is a school project to demonstrate scraping websites and object oriented programming. The gem scrapes the websites of various Disney resorts and returns info about the rides at each resort. Users can use the CLI to view rides categorized by thrill level or fastpass availability, or can choose to view all rides at a given resort.
 
 ## Installation
 
