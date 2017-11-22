@@ -111,11 +111,11 @@ class DisneyRides::CLI
       fastpass = current_resort.rides.select {|ride| ride.fastpass == "Yes"}
       puts ""
       puts "----------- Fastpass Rides -----------"
-      if current_resort.name == "Disneyland Resort Paris"
-        puts "Sorry, Fastpass info currently unavailable for Paris"
-        puts ""
-        menu
-      else
+      # if current_resort.name == "Disneyland Resort Paris"
+      #   puts "Sorry, Fastpass info currently unavailable for Paris"
+      #   puts ""
+      #   menu
+      # else
         puts ""
         fastpass.each.with_index(1) {|ride, index| puts "#{index}. #{ride.name}"}
         puts ""
@@ -126,7 +126,7 @@ class DisneyRides::CLI
         else
           print_ride(fastpass[input.to_i - 1])
         end
-      end
+      # end
     end
 
     def print_ride_list
